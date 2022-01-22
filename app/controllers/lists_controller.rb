@@ -1,4 +1,6 @@
 class ListsController < ApplicationController
+  before_action :find_task, only: [:show]
+
   def index
     @list = List.all
   end
@@ -22,7 +24,7 @@ private
     @list = List.find(params[:id])
   end
 
-  def task_params
+  def list_params
     params.require(:list).permit(:list)
   end
 end
