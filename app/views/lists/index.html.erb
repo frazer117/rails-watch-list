@@ -1,1 +1,6 @@
-<%= List.all %>
+<h2>Movie Watchlist</h2>
+<ol>
+  <%= @lists.each do |list| %>
+    <%= list.name %>
+  <% end %>
+</ol>
