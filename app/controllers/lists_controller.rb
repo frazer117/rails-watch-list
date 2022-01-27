@@ -1,11 +1,11 @@
 class ListsController < ApplicationController
-  before_action :find_task, only: [:show]
-
   def index
-    @list = List.all
+    @lists = List.all
   end
 
   def show
+    @list = List.find(params[:id])
+    @movies = @list.movies
   end
 
   def new
@@ -14,17 +14,16 @@ class ListsController < ApplicationController
 
   def create
     @list = List.new(list_params)
-    @list.save
-    redirect_to list_path(@list)
+    if @list.save
+      redirect_to list_path(@list)
+    else
+      render :new
+    end
   end
 
-private
-
-  def find_list
-    @list = List.find(params[:id])
-  end
+  private
 
   def list_params
-    params.require(:list).permit(:list)
+    params.require(:list).permit(:name)
   end
 end
